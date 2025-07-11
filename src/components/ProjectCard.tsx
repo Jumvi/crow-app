@@ -7,9 +7,10 @@ import { Typography } from './ui';
 interface ProjectCardProps {
   project: Project;
   onPress: () => void;
+  showDetailedInfo?: boolean;
 }
 
-export const ProjectCard = ({ project, onPress }: ProjectCardProps) => {
+export const ProjectCard = ({ project, onPress, showDetailedInfo = false }: ProjectCardProps) => {
   const progressPercentage = (project.raisedAmount / project.targetAmount) * 100;
   const category = PROJECT_CATEGORIES[project.category];
   const riskLevel = RISK_LEVELS[project.riskLevel];
@@ -118,6 +119,41 @@ export const ProjectCard = ({ project, onPress }: ProjectCardProps) => {
             <View style={[tw`w-2 h-2 rounded-full ml-2`, { backgroundColor: riskLevel.color }]} />
           </View>
         </View>
+
+        {/* Informations détaillées */}
+        {showDetailedInfo && (
+          <View style={tw`mt-3 pt-3 border-t border-gray-100`}>
+            <View style={tw`flex-row justify-between items-center mb-2`}>
+              <Typography variant="caption" style={tw`text-gray-600`}>
+                Retour attendu
+              </Typography>
+              <Typography variant="caption" style={[tw`font-bold`, { color: COLORS.sunYellow }]}>
+                ${Math.round(project.targetAmount * project.roi / 100).toLocaleString()}
+              </Typography>
+            </View>
+            
+            <View style={tw`flex-row justify-between items-center mb-2`}>
+              <Typography variant="caption" style={tw`text-gray-600`}>
+                Niveau de risque
+              </Typography>
+              <View style={tw`flex-row items-center`}>
+                <View style={[tw`w-2 h-2 rounded-full mr-1`, { backgroundColor: riskLevel.color }]} />
+                <Typography variant="caption" style={[tw`font-medium`, { color: riskLevel.color }]}>
+                  {riskLevel.label}
+                </Typography>
+              </View>
+            </View>
+            
+            <View style={tw`flex-row justify-between items-center`}>
+              <Typography variant="caption" style={tw`text-gray-600`}>
+                Date limite
+              </Typography>
+              <Typography variant="caption" style={tw`font-medium`}>
+                {new Date(project.endDate).toLocaleDateString('fr-FR')}
+              </Typography>
+            </View>
+          </View>
+        )}
       </View>
     </TouchableOpacity>
   );

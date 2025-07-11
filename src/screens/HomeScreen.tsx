@@ -4,13 +4,19 @@ import tw from 'twrnc';
 import { ProjectCard } from '../components/ProjectCard';
 import { Button, Typography } from '../components/ui';
 import { APP_CONFIG, COLORS, PROJECT_CATEGORIES } from '../constants';
-import { mockProjects } from '../data/mockData';
+import { projectsData } from '../constants/projectsData';
 import { useAuth } from '../hooks';
+import { Project } from '../types';
 
-export const HomeScreen = () => {
+interface HomeScreenProps {
+  onNavigateToProjects: () => void;
+  onProjectSelect: (project: Project) => void;
+}
+
+export const HomeScreen = ({ onNavigateToProjects, onProjectSelect }: HomeScreenProps) => {
   const { user, isAuthenticated } = useAuth();
 
-  const featuredProjects = mockProjects.slice(0, 3);
+  const featuredProjects = projectsData.slice(0, 3);
 
   return (
     <ScrollView style={tw`flex-1 bg-[#F2EFE9]`}>
@@ -24,10 +30,9 @@ export const HomeScreen = () => {
         <View style={tw`flex-row items-center justify-between relative z-10`}>
           <View>
             <Typography variant="caption" style={tw`text-white opacity-90 mb-1`}>
-              Bonjour 👋
             </Typography>
             <Typography variant="h2" style={tw`text-white font-bold`}>
-              {isAuthenticated ? user?.name : 'Bienvenue'}
+              {isAuthenticated ? user?.name : ' AgroFinance RDC'}
             </Typography>
             <Typography variant="body" style={tw`text-white opacity-80 mt-1`}>
               {APP_CONFIG.tagline}
@@ -119,7 +124,7 @@ export const HomeScreen = () => {
           <Typography variant="h3" style={[tw`font-semibold`, { color: COLORS.forestGreen }]}>
             Projets en vedette
           </Typography>
-          <TouchableOpacity onPress={() => console.log('Voir tous les projets')}>
+          <TouchableOpacity onPress={onNavigateToProjects}>
             <Typography variant="caption" style={[tw`font-medium`, { color: COLORS.earthBrown }]}>
               Voir tout
             </Typography>
@@ -131,7 +136,7 @@ export const HomeScreen = () => {
             <ProjectCard
               key={project.id}
               project={project}
-              onPress={() => console.log(`Projet sélectionné: ${project.title}`)}
+              onPress={() => onProjectSelect(project)}
             />
           ))}
         </View>
@@ -158,7 +163,7 @@ export const HomeScreen = () => {
             variant="outline"
             size="lg"
             fullWidth
-            onPress={() => console.log('Explorer investissements')}
+            onPress={onNavigateToProjects}
             style={{ borderColor: COLORS.earthBrown }}
           />
         </View>
@@ -206,7 +211,7 @@ export const HomeScreen = () => {
           </Typography>
         </TouchableOpacity>
         
-        <TouchableOpacity style={tw`items-center`}>
+        <TouchableOpacity style={tw`items-center`} onPress={onNavigateToProjects}>
           <Text style={tw`text-2xl mb-1`}>🌾</Text>
           <Typography variant="caption" style={[{ color: COLORS.gray[500] }]}>
             Projets

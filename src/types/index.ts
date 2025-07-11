@@ -11,6 +11,29 @@ export interface User {
   updatedAt: Date;
 }
 
+// Nouvelles interfaces pour enrichir les projets
+export interface BusinessPlan {
+  marketAnalysis: string;
+  competition: string;
+  projectedRevenue: number;
+  keyRisks: string[];
+  mitigationStrategies: string[];
+}
+
+export interface ImpactMetrics {
+  jobsCreated: number;
+  familiesBenefited: number;
+  carbonOffset: number; // tonnes CO2
+  waterSaved: number; // litres
+}
+
+export interface ProjectUpdate {
+  date: Date;
+  title: string;
+  content: string;
+  images: string[];
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -35,6 +58,10 @@ export interface Project {
   minimumInvestment: number;
   riskLevel: 'low' | 'medium' | 'high';
   createdAt: Date;
+  // Nouvelles propriétés optionnelles
+  businessPlan?: BusinessPlan;
+  impactMetrics?: ImpactMetrics;
+  updates?: ProjectUpdate[];
 }
 
 export interface Investment {
