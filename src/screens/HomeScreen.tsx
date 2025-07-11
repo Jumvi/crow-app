@@ -14,7 +14,7 @@ interface HomeScreenProps {
 }
 
 export const HomeScreen = ({ onNavigateToProjects, onProjectSelect }: HomeScreenProps) => {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
 
   const featuredProjects = projectsData.slice(0, 3);
 
@@ -28,7 +28,7 @@ export const HomeScreen = ({ onNavigateToProjects, onProjectSelect }: HomeScreen
       >
         <View style={[tw`absolute inset-0`, { backgroundColor: COLORS.forestGreen }]} />
         <View style={tw`flex-row items-center justify-between relative z-10`}>
-          <View>
+          <View style={tw`flex-1`}>
             <Typography variant="caption" style={tw`text-white opacity-90 mb-1`}>
             </Typography>
             <Typography variant="h2" style={tw`text-white font-bold`}>
@@ -40,10 +40,21 @@ export const HomeScreen = ({ onNavigateToProjects, onProjectSelect }: HomeScreen
           </View>
           
           {isAuthenticated && (
-            <View style={[tw`w-12 h-12 rounded-full items-center justify-center`, { backgroundColor: COLORS.cream }]}>
-              <Typography variant="h3" style={[tw`font-bold`, { color: COLORS.forestGreen }]}>
-                {user?.name?.charAt(0)}
-              </Typography>
+            <View style={tw`items-center gap-3`}>
+              <View style={[tw`w-12 h-12 rounded-full items-center justify-center`, { backgroundColor: COLORS.cream }]}>
+                <Typography variant="h3" style={[tw`font-bold`, { color: COLORS.forestGreen }]}>
+                  {user?.name?.charAt(0)}
+                </Typography>
+              </View>
+              
+              <TouchableOpacity
+                onPress={logout}
+                style={[tw`px-3 py-1 rounded-full`, { backgroundColor: COLORS.cream, opacity: 0.9 }]}
+              >
+                <Typography variant="caption" style={[tw`font-semibold`, { color: COLORS.forestGreen }]}>
+                  Déconnexion
+                </Typography>
+              </TouchableOpacity>
             </View>
           )}
         </View>

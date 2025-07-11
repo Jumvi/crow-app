@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, TouchableOpacity, View, TextInput } from 'react-native';
+import { ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
 import { ProjectCard } from '../components/ProjectCard';
 import { Button, Typography } from '../components/ui';
@@ -50,7 +50,7 @@ export const ProjectsScreen = ({ onProjectSelect, onBack }: ProjectsScreenProps)
             <Typography style={tw`text-white text-lg`}>←</Typography>
           </TouchableOpacity>
           <Typography variant="h2" style={tw`text-white font-bold flex-1`}>
-            Projets Agricoles
+            Projets 
           </Typography>
         </View>
         <Typography variant="body" style={tw`text-white opacity-90 ml-12`}>
