@@ -1,7 +1,7 @@
 import React from 'react';
-import { useAuthStore } from '../../src/store';
-import { PortefeuilleScreen } from '../../src/screens/PortefeuilleScreen';
 import { AuthNavigator } from '../../src/navigation/AuthNavigator';
+import { PortefeuilleScreen } from '../../src/screens/PortefeuilleScreen';
+import { useAuthStore } from '../../src/store';
 
 export default function PortefeuilleTab() {
   const { isAuthenticated } = useAuthStore();

@@ -1,6 +1,6 @@
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { ImageBackground, ScrollView, Text, TouchableOpacity, View } from 'react-native';
-import { router } from 'expo-router';
 import tw from 'twrnc';
 import { ProjectCard } from '../components/ProjectCard';
 import { Button, Typography } from '../components/ui';
@@ -179,7 +179,10 @@ export const HomeScreen = ({ onNavigateToProjects, onProjectSelect, onNavigateTo
           <Typography variant="h3" style={[tw`font-semibold`, { color: COLORS.forestGreen }]}>
             Projets en vedette
           </Typography>
-          <TouchableOpacity onPress={onNavigateToProjects}>
+          <TouchableOpacity onPress={() => {
+            console.log('Navigation vers tous les projets');
+            router.push('/(tabs)/projects');
+          }}>
             <Typography variant="caption" style={[tw`font-medium`, { color: COLORS.earthBrown }]}>
               Voir tout
             </Typography>
@@ -209,7 +212,10 @@ export const HomeScreen = ({ onNavigateToProjects, onProjectSelect, onNavigateTo
             variant="primary"
             size="lg"
             fullWidth
-            onPress={() => console.log('Créer projet')}
+            onPress={() => {
+              console.log('Navigation vers création de projet');
+              router.push('/create-project');
+            }}
             style={{ backgroundColor: COLORS.forestGreen }}
           />
           
@@ -218,7 +224,10 @@ export const HomeScreen = ({ onNavigateToProjects, onProjectSelect, onNavigateTo
             variant="outline"
             size="lg"
             fullWidth
-            onPress={onNavigateToProjects}
+            onPress={() => {
+              console.log('Navigation vers les projets');
+              router.push('/(tabs)/projects');
+            }}
             style={{ borderColor: COLORS.earthBrown }}
           />
         </View>

@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { ScrollView, TextInput, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
@@ -222,7 +223,10 @@ export const ProjectsTabScreen = ({ onProjectSelect }: ProjectsTabScreenProps) =
             variant="primary"
             size="md"
             style={{ backgroundColor: COLORS.forestGreen }}
-            onPress={() => console.log('Soumettre projet')}
+            onPress={() => {
+              console.log('Navigation vers création de projet');
+              router.push('/create-project');
+            }}
           />
         </View>
       </View>
