@@ -3,8 +3,10 @@ export interface User {
   id: string;
   email: string;
   name: string;
+  phone?: string;
   avatar?: string;
   location?: string;
+  userType?: 'investor' | 'farmer';
   investmentTotal?: number;
   projectsSupported?: number;
   createdAt: Date;

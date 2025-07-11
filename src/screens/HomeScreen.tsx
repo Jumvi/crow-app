@@ -11,9 +11,10 @@ import { Project } from '../types';
 interface HomeScreenProps {
   onNavigateToProjects: () => void;
   onProjectSelect: (project: Project) => void;
+  onNavigateToProfile?: () => void;
 }
 
-export const HomeScreen = ({ onNavigateToProjects, onProjectSelect }: HomeScreenProps) => {
+export const HomeScreen = ({ onNavigateToProjects, onProjectSelect, onNavigateToProfile }: HomeScreenProps) => {
   const { user, isAuthenticated, logout } = useAuth();
 
   const featuredProjects = projectsData.slice(0, 3);
@@ -41,11 +42,14 @@ export const HomeScreen = ({ onNavigateToProjects, onProjectSelect }: HomeScreen
           
           {isAuthenticated && (
             <View style={tw`items-center gap-3`}>
-              <View style={[tw`w-12 h-12 rounded-full items-center justify-center`, { backgroundColor: COLORS.cream }]}>
+              <TouchableOpacity
+                onPress={onNavigateToProfile}
+                style={[tw`w-12 h-12 rounded-full items-center justify-center`, { backgroundColor: COLORS.cream }]}
+              >
                 <Typography variant="h3" style={[tw`font-bold`, { color: COLORS.forestGreen }]}>
                   {user?.name?.charAt(0)}
                 </Typography>
-              </View>
+              </TouchableOpacity>
               
               <TouchableOpacity
                 onPress={logout}

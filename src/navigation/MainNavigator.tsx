@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Project } from '../types';
 import { HomeScreen } from '../screens/HomeScreen';
-import { ProjectsScreen } from '../screens/ProjectsScreen';
+import { ProfileScreen } from '../screens/ProfileScreen';
 import { ProjectDetailScreen } from '../screens/ProjectDetailScreen';
+import { ProjectsScreen } from '../screens/ProjectsScreen';
+import { Project } from '../types';
 
-type MainScreen = 'home' | 'projects' | 'projectDetail';
+type MainScreen = 'home' | 'projects' | 'projectDetail' | 'profile';
 
 export const MainNavigator = () => {
   const [currentScreen, setCurrentScreen] = useState<MainScreen>('home');
@@ -12,6 +13,10 @@ export const MainNavigator = () => {
 
   const handleNavigateToProjects = () => {
     setCurrentScreen('projects');
+  };
+
+  const handleNavigateToProfile = () => {
+    setCurrentScreen('profile');
   };
 
   const handleProjectSelect = (project: Project) => {
@@ -41,6 +46,7 @@ export const MainNavigator = () => {
         <HomeScreen
           onNavigateToProjects={handleNavigateToProjects}
           onProjectSelect={handleProjectSelect}
+          onNavigateToProfile={handleNavigateToProfile}
         />
       );
     
@@ -63,6 +69,14 @@ export const MainNavigator = () => {
         <HomeScreen
           onNavigateToProjects={handleNavigateToProjects}
           onProjectSelect={handleProjectSelect}
+        />
+      );
+    
+    case 'profile':
+      return (
+        <ProfileScreen
+          onBack={handleBackToHome}
+          onEditProfile={() => console.log('Edit profile')}
         />
       );
     

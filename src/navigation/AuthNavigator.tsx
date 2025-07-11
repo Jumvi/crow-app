@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
-import { useAuthStore } from '../store';
 import { LoginScreen } from '../screens/LoginScreen';
 import { SignUpScreen } from '../screens/SignUpScreen';
+import { useAuthStore } from '../store';
 
 type AuthScreen = 'login' | 'signup';
 

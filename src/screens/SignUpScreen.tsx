@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Alert, ImageBackground, KeyboardAvoidingView, Platform, ScrollView, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
 import { Button, Input, Typography } from '../components/ui';
-import { APP_CONFIG, COLORS } from '../constants';
+import { COLORS } from '../constants';
 
 interface SignUpScreenProps {
   onSignUp: (userData: {
