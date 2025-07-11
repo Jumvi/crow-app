@@ -135,14 +135,16 @@ export const ProfileScreen = ({ onBack, onEditProfile }: ProfileScreenProps) => 
       {/* Informations personnelles */}
       <View style={tw`px-6 mt-6`}>
         <View style={tw`bg-white rounded-xl p-6 shadow-sm`}>
-          <View style={tw`flex-row items-center justify-between mb-4`}>
-            <Typography variant="h3" style={[tw`font-bold`, { color: COLORS.forestGreen }]}>
-              👤 Informations personnelles
-            </Typography>
+          <View style={tw`flex-row items-center mb-4`}>
+            <View style={tw`flex-1`}>
+              <Typography variant="h3" style={[tw`font-bold`, { color: COLORS.forestGreen }]}>
+                👤 Informations personnelles
+              </Typography>
+            </View>
             
             <TouchableOpacity
               onPress={() => setIsEditing(!isEditing)}
-              style={[tw`px-3 py-1 rounded-lg`, { backgroundColor: COLORS.lightGreen }]}
+              style={[tw`px-4 py-2 rounded-lg ml-3`, { backgroundColor: COLORS.lightGreen }]}
             >
               <Typography variant="caption" style={[tw`font-medium`, { color: COLORS.forestGreen }]}>
                 {isEditing ? 'Annuler' : 'Modifier'}
