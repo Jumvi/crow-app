@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ImageBackground, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import tw from 'twrnc';
 import { ProjectCard } from '../components/ProjectCard';
@@ -16,11 +16,21 @@ interface HomeScreenProps {
 
 export const HomeScreen = ({ onNavigateToProjects, onProjectSelect, onNavigateToProfile }: HomeScreenProps) => {
   const { user, isAuthenticated, logout } = useAuth();
+  const [showUserMenu, setShowUserMenu] = useState(false);
 
   const featuredProjects = projectsData.slice(0, 3);
 
   return (
     <ScrollView style={tw`flex-1 bg-[#F2EFE9]`}>
+      {/* Overlay pour fermer le menu */}
+      {showUserMenu && (
+        <TouchableOpacity 
+          style={tw`absolute inset-0 z-40`}
+          onPress={() => setShowUserMenu(false)}
+          activeOpacity={1}
+        />
+      )}
+      
       {/* Header avec fond naturel */}
       <ImageBackground
         source={{ uri: 'https://images.unsplash.com/photo-1595117882577-0ea83e1baffe?w=800&h=400&fit=crop' }}
@@ -41,9 +51,9 @@ export const HomeScreen = ({ onNavigateToProjects, onProjectSelect, onNavigateTo
           </View>
           
           {isAuthenticated && (
-            <View style={tw`items-center gap-3`}>
+            <View style={tw`relative`}>
               <TouchableOpacity
-                onPress={onNavigateToProfile}
+                onPress={() => setShowUserMenu(!showUserMenu)}
                 style={[tw`w-12 h-12 rounded-full items-center justify-center`, { backgroundColor: COLORS.cream }]}
               >
                 <Typography variant="h3" style={[tw`font-bold`, { color: COLORS.forestGreen }]}>
@@ -51,14 +61,38 @@ export const HomeScreen = ({ onNavigateToProjects, onProjectSelect, onNavigateTo
                 </Typography>
               </TouchableOpacity>
               
-              <TouchableOpacity
-                onPress={logout}
-                style={[tw`px-3 py-1 rounded-full`, { backgroundColor: COLORS.cream, opacity: 0.9 }]}
-              >
-                <Typography variant="caption" style={[tw`font-semibold`, { color: COLORS.forestGreen }]}>
-                  Déconnexion
-                </Typography>
-              </TouchableOpacity>
+              {/* Menu déroulant */}
+              {showUserMenu && (
+                <View style={[tw`absolute top-14 right-0 bg-white rounded-xl shadow-lg p-2 min-w-[160px] z-50`, { borderWidth: 1, borderColor: COLORS.gray[200] }]}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setShowUserMenu(false);
+                      onNavigateToProfile?.();
+                    }}
+                    style={tw`flex-row items-center px-3 py-3 rounded-lg`}
+                  >
+                    <Typography style={tw`mr-3 text-lg`}>👤</Typography>
+                    <Typography variant="body" style={[tw`font-medium`, { color: COLORS.forestGreen }]}>
+                      Gérer mon profil
+                    </Typography>
+                  </TouchableOpacity>
+                  
+                  <View style={[tw`h-px my-1`, { backgroundColor: COLORS.gray[200] }]} />
+                  
+                  <TouchableOpacity
+                    onPress={() => {
+                      setShowUserMenu(false);
+                      logout();
+                    }}
+                    style={tw`flex-row items-center px-3 py-3 rounded-lg`}
+                  >
+                    <Typography style={tw`mr-3 text-lg`}>🚪</Typography>
+                    <Typography variant="body" style={[tw`font-medium`, { color: COLORS.danger }]}>
+                      Déconnexion
+                    </Typography>
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
           )}
         </View>
