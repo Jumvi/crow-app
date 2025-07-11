@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ImageBackground, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { router } from 'expo-router';
 import tw from 'twrnc';
 import { ProjectCard } from '../components/ProjectCard';
 import { Button, Typography } from '../components/ui';
@@ -66,10 +67,13 @@ export const HomeScreen = ({ onNavigateToProjects, onProjectSelect, onNavigateTo
                 <View style={[tw`absolute top-14 right-0 bg-white rounded-xl shadow-lg p-2 min-w-[160px] z-50`, { borderWidth: 1, borderColor: COLORS.gray[200] }]}>
                   <TouchableOpacity
                     onPress={() => {
+                      console.log('Clic sur Gérer mon profil');
                       setShowUserMenu(false);
-                      onNavigateToProfile?.();
+                      // Navigation vers l'onglet profil
+                      router.push('/(tabs)/profile');
                     }}
-                    style={tw`flex-row items-center px-3 py-3 rounded-lg`}
+                    style={[tw`flex-row items-center px-3 py-3 rounded-lg`, { backgroundColor: 'transparent' }]}
+                    activeOpacity={0.7}
                   >
                     <Typography style={tw`mr-3 text-lg`}>👤</Typography>
                     <Typography variant="body" style={[tw`font-medium`, { color: COLORS.forestGreen }]}>
@@ -81,10 +85,12 @@ export const HomeScreen = ({ onNavigateToProjects, onProjectSelect, onNavigateTo
                   
                   <TouchableOpacity
                     onPress={() => {
+                      console.log('Clic sur Déconnexion');
                       setShowUserMenu(false);
                       logout();
                     }}
-                    style={tw`flex-row items-center px-3 py-3 rounded-lg`}
+                    style={[tw`flex-row items-center px-3 py-3 rounded-lg`, { backgroundColor: 'transparent' }]}
+                    activeOpacity={0.7}
                   >
                     <Typography style={tw`mr-3 text-lg`}>🚪</Typography>
                     <Typography variant="body" style={[tw`font-medium`, { color: COLORS.danger }]}>
